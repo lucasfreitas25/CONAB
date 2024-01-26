@@ -26,7 +26,7 @@ df.fillna(value=0, inplace=True)
 df['qtd_capacidade_estatica(t)'] = df['qtd_capacidade_estatica(t)'].str.replace(',', '.').astype(float)
 
 df.to_excel('C:\\Users\\LucasFreitas\\Documents\\Lucas Freitas Arquivos\\DATAHUB\\DADOS\\conab\\Dados CONAB.xlsx', index=False)
-
+df.to_html('C:\\Users\\LucasFreitas\\Documents\\Lucas Freitas Arquivos\\DATAHUB\\CHATBOT\\Banco de dados Bot\\Dados CONAB.html', index=False)
     
 #FAZ AS ALTERAÇÕES ESTRUTURAIS DA PLANILHA
 wb_conab = openpyxl.load_workbook("C:\\Users\\LucasFreitas\\Documents\\Lucas Freitas Arquivos\\DATAHUB\\DADOS\\conab\\Dados CONAB.xlsx")  
