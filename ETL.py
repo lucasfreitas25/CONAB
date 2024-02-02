@@ -3,10 +3,9 @@ import pandas as pd
 import requests as rq
 from bs4 import BeautifulSoup
 import openpyxl
-
+from ajustar_planilha import ajustar_colunas, ajustar_bordas
 
 # EXTRAÇÃO DOS DADOS NO SITE
-
 url_dados = 'https://portaldeinformacoes.conab.gov.br/downloads/arquivos/ArmazensCadastrados.txt'
 response = rq.get(url_dados)
 conteudo_pagina = response.text
@@ -16,7 +15,6 @@ dados_texto = soup.get_text()
 with open('conteudo_site.txt', 'w', encoding='latin-1') as arquivo:
     arquivo.write(dados_texto)
 
-    
 #TRATAMENTO DOS DADOS
 df = pd.read_csv('C:\\Users\\LucasFreitas\\Documents\\Lucas Freitas Arquivos\\DATAHUB\\DADOS\\conab\\conteudo_site.txt', sep=';', encoding='utf-8')
 
@@ -32,17 +30,6 @@ df.to_html('C:\\Users\\LucasFreitas\\Documents\\Lucas Freitas Arquivos\\DATAHUB\
 wb_conab = openpyxl.load_workbook("C:\\Users\\LucasFreitas\\Documents\\Lucas Freitas Arquivos\\DATAHUB\\DADOS\\conab\\Dados CONAB.xlsx")  
 ws_conab = wb_conab.active
 
-colunas_para_ajustar = ['A' ,'B', 'C', 'D', 'E']
-largura_desejada = 22
-
-for coluna in colunas_para_ajustar:
-    ws_conab.column_dimensions[coluna].width = largura_desejada
-
-colunas_maiores = ['I', 'J', 'K']
-largura_planejada = 27
-
-for coluna in colunas_maiores:
-    ws_conab.column_dimensions[coluna].width = largura_planejada
-    
-ws_conab.column_dimensions['F'].width = 37    
+ajustar_colunas(ws_conab)
+ajustar_bordas(wb_conab)
 wb_conab.save("C:\\Users\\LucasFreitas\\Documents\\Lucas Freitas Arquivos\\DATAHUB\\DADOS\\conab\\Dados CONAB.xlsx")
